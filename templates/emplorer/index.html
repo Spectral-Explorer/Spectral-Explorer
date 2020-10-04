@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card-box">
+                <form action="" name="services-form" id="services-form" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="service_type">Service Type</label>
+                        <input type="text" class="form-control" id="service_type" name="service_type"
+                               aria-describedby="emailHelp"
+                               placeholder="Enter service type">
+                    </div>
+                    <div class="form-group">
+
+
+                        <label for="waveband">Waveband</label>
+                        <input type="text" class="form-control" id="waveband" name="waveband"
+                               aria-describedby="emailHelp"
+                               placeholder="Enter waveband">
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" name="services-form" form="services-form">List
+                    </button>
+                </form>
+
+
+                <div>
+                    <p>
+                        <br>
+                        <br>
+
+                    </p>
+                </div>
+                {% if string_services %}
+                    <div>
+                        <form action="{% url 'explorer2' %}" name="select-service-form" id="select-service-form"
+                              method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Choose a service:</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="services" id="services">
+                                    {% for  service in string_services %}
+                                        <option value="{{ service }}">{{ service }}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+
+                            <input type="hidden" name="waveband" value="{{ waveband }}">
+                            <input type="hidden" name="service_type" value="{{ service_type }}">
+
+
+                            <button type="submit" class="btn btn-primary" name="select-service-form" form="select-service-form">List
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="col-6">
+
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
